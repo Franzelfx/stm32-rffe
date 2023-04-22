@@ -1,7 +1,7 @@
 #include "rffe.h"
 #include <stdlib.h>
 
-struct rffe;
+rffe_t rffe;
 
 void SetPinOutput(GPIO_TypeDef *port, uint16_t pin);
 
