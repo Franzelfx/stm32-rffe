@@ -141,11 +141,18 @@ void RFFE_SendRecvBitBuffer(uint8_t *buff, uint8_t buff_len, uint8_t rx_start_ix
 
 /* Prepare the write byte packet for a specific register address and send it off.
  */
-void RFFE_WriteByte(uint8_t addr, uint8_t data) {
+void RFFE_WriteByte(uint8_t addr, uint8_t data, uint8_t parity) {
 
+    uint8_t addrWithParity;
+    uint16_t dataWithParity;
     // Set up the buffer to transmit
-    uint8_t addrWithParity = addr << 1 | GetOddParity(addr);
-    uint16_t dataWithParity = ((uint16_t)data) << 1 | GetOddParity(data);
+	if(parity == EVEN){
+		uint8_t addrWithParity = addr << 1 | GetEvenParity(addr);
+	    uint16_t dataWithParity = ((uint16_t)data) << 1 | GetEvenParity(data);
+	}else{
+		uint8_t addrWithParity = addr << 1 | GetOddParity(addr);
+		uint16_t dataWithParity = ((uint16_t)data) << 1 | GetOddParity(data);
+	}
 
     uint8_t dataPlusParityLength = 9;
     uint8_t packetLength = RFFE_SLAVE_ADDR_LEN + RFFE_READ_WRITE_FLAG_LEN + 

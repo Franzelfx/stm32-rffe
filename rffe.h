@@ -13,6 +13,8 @@
 #define RFFE_TIM TIM2
 
 // RFFE-specific defines
+#define ODD 0
+#define EVEN 1
 #define RFFE_READ_FLAG 0b011
 #define RFFE_WRITE_FLAG 0b010
 #define RFFE_START_SEQ_LEN 2
@@ -31,7 +33,7 @@ typedef struct rffe {
 
 void RFFE_Init(uint8_t slave_addr, GPIO_TypeDef *gpio_port, uint16_t sck_pin, uint16_t sda_pin);
 void RFFE_SetSpeed(uint16_t prescaler, uint16_t period, uint32_t clk_div);
-void RFFE_WriteByte(uint8_t addr, uint8_t data);
+void RFFE_WriteByte(uint8_t addr, uint8_t data, uint8_t parity);
 void RFFE_WriteReg0Byte(uint8_t data);
 uint8_t RFFE_ReadByte(uint8_t addr);
 
